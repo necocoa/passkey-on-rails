@@ -27,3 +27,5 @@ group :development do
   # gem "spring"
 end
 
+
+gem "redis-session-store", "~> 0.11.5"

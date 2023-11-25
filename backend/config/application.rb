@@ -40,5 +40,19 @@ module Backend
     # Middleware like session, flash, cookies can be added back manually.
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
+
+    config.middleware.use ActionDispatch::Cookies
+    config.session_store :redis_session_store,
+      key: "app_sid",
+      httponly: true,
+      secure: Rails.env.production?,
+      same_site: :lax,
+      signed: true,
+      expire_after: 604800, # 1week
+      redis: {
+        key_prefix: "app:session:",
+        url: "redis://#{ENV.fetch("REDIS_HOST") { "localhost" }}:6379/0",
+      }
+    config.middleware.use config.session_store, config.session_options
   end
 end
