@@ -29,3 +29,5 @@ end
 
 
 gem "redis-session-store", "~> 0.11.5"
+
+gem "webauthn", "~> 3.0"
